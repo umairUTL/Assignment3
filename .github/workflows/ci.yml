@@ -1,0 +1,31 @@
+name: CI Pipeline
+
+# Trigger the workflow on push to the main branch
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Runs the job on the latest Ubuntu machine
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3  # Pulls the latest code from the repository
+
+      - name: Set up Python
+        uses: actions/setup-python@v4  # Set up Python (adjust this if you're using something else)
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt  # Installs dependencies from requirements.txt (adjust for your stack)
+
+      - name: Run tests
+        run: |
+          pytest  # Run your tests using pytest (replace with your test command if needed)
